@@ -14,7 +14,7 @@ He		child;
 	if(self==NULL) return;
 	if(self->magic!=HLIB_ELEMENT) return;
 
-	if(!strcmp(self->face,"text")){
+	if(!strcmp(self->face,HELIUM_TEXT_TAG)){
 		stringBufferAddStr(sb, self->content);
 		return;
 	}

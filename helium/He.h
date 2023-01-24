@@ -9,6 +9,8 @@ typedef uint32_t hmagic;
 
 #define HLIB_ELEMENT		0x454c454d
 #define HLIB_ATTRIBUTE		0x41545452
+#define HELIUM_TEXT_TAG		"_text"
+#define HELIUM_LIST_TAG		"_list"
 
 struct HNode_st;
 typedef struct HNode_st *HNode;
@@ -60,6 +62,8 @@ void	heAttrFree(HeAttr self);
 HeAttr	heClass(char *class_name);
 HeAttr	heId(char *id_name);
 He	heText(char *text);
+He	heList();
+He	heListv(va_list args);
 
 // Renderers
 void	heRender(He e, StringBuffer sb);

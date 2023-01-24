@@ -47,7 +47,7 @@ He	self;
 	self->child_last	= NULL;
 	self->next		= NULL;
 
-	if(!strcmp(face,"text")){
+	if(!strcmp(face,HELIUM_TEXT_TAG)){
 		self->content = safe_strdup(va_arg(args, char *));
 	}else{
 		heAddChildv(self, args);
@@ -88,18 +88,32 @@ HeAttr	attribute, next_attribute;
 	free(self);
 }
 	
+static He heGetLast(He self)
+{
+He last = self;
+
+	while(last->next){
+		last = last->next;
+	}
+
+	return last;
+}
+
 void heAddChild(He self, He child)
 {
 	if(self==NULL) return;
 	if(self->magic!=HLIB_ELEMENT) return;
+
+	if(child!=NULL && !strcmp(child->face, HELIUM_LIST_TAG)){
+		child = child->child;
+	}
 
 	if(self->child == NULL){
 		self->child = child;
 	}else{
 		self->child_last->next = child;
 	}
-
-	self->child_last = child;
+	self->child_last = heGetLast(child);
 }
 
 void heAddChildv(He self, va_list args)

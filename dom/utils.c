@@ -12,7 +12,17 @@ HeAttr heId(char *id_name)
 
 He heText(char *text)
 {
-	return heNew("text", text);
+	return heNew(HELIUM_TEXT_TAG, text);
+}
+
+He heList()
+{
+	return heNew(HELIUM_LIST_TAG);
+}
+
+He heListv(va_list args)
+{
+	return heNewv(HELIUM_LIST_TAG, args);
 }
 
 

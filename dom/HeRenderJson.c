@@ -27,7 +27,7 @@ char	*st;
 	if(self==NULL) return;
 	if(self->magic!=HLIB_ELEMENT) return;
 
-	if(!strcmp(self->face,"text")){
+	if(!strcmp(self->face,HELIUM_TEXT_TAG)){
 		if(self->content) {
 			stringBufferAddf(sb, "{\"t\":\"%d\", \"v\":\"%s\", \"h\":%d}", 
 				hashAccString(0,self->face),
