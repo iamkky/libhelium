@@ -9,11 +9,19 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <helium/He.h>
 #include "cgi.h"
 
-He mkPage(char *title, He content)
+He mkPage(char *title, ...)
 {
+va_list	args;
+He	children;
+
+	va_start(args, title);
+	children = heListv(args);
+	va_end(args);
+
 	return heNew("html",
 		heNew("head",
 			heNew("meta", heAttrNew("http-equiv", "content-type"), heAttrNew("content","text/html"), heAttrNew("charset","ISO-8859-1"), NULL),
@@ -25,7 +33,7 @@ He mkPage(char *title, He content)
 			NULL
 		),
 		heNew("body",
-			content,
+			children,
 			NULL
 		),
 		NULL
@@ -120,11 +128,19 @@ He div;
 
 He cgi_editform_x(int id)
 {
-char		*continents[] = {"Africa","America","Asia","Europe","Oceania"};
-char		*money_options[] = {"Make money","Spend money","Don't care about money"};
+char *continents[] = {"Africa","America","Asia","Europe","Oceania"};
+char *money_options[] = {"Make money","Spend money","Don't care about money"};
+char *query_string;
+
+	query_string = getenv("QUERY_STRING");
 
 	return mkPage("Form Example", 
-		mkForm("form1", "get",
+		heNew("div",
+			heText("Last Query String: "),
+			heText(query_string),
+			NULL
+		),
+		mkForm("form", "GET",
 			mkFormFieldHidden("id", "0"),
 			mkFormFieldText("Name:", "name", "20"),
 			mkFormFieldText("Age:", "age", "20"),
@@ -132,7 +148,8 @@ char		*money_options[] = {"Make money","Spend money","Don't care about money"};
 			mkFormFieldRadio("Money option:", "money", money_options, 3),
 			mkFormFieldButton("submit", heText("Submit"), NULL),
 			NULL
-		)
+		),
+		NULL
 	);
 }
 
