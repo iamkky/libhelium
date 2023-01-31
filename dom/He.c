@@ -144,9 +144,9 @@ void heAddAttribute(He self, HeAttr attr)
 		self->id = safe_strdup(attr->value);
 	}
 
-	if(!strcmp(attr->name,"id")){
-		if(self->id) free(self->id);
-		self->id = safe_strdup(attr->value);
+	if(!strcmp(attr->name,"class")){
+		if(self->cl) free(self->cl);
+		self->cl = safe_strdup(attr->value);
 	}
 }
 
