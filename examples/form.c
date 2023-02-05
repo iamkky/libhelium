@@ -27,7 +27,6 @@ He	children;
 			heNew("link", heAttrNew("rel","stylesheet"), heAttrNew("href","/theme_default.css"), NULL),
 			heNew("link", heAttrNew("rel","stylesheet"), heAttrNew("href","/form.css"), NULL),
 			heNew("meta", heAttrNew("http-equiv", "content-type"), heAttrNew("content","text/html"), heAttrNew("charset","ISO-8859-1"), NULL),
-			heNew("meta", heAttrNew("name", "author"), heAttrNew("content","Rafael Steil"), NULL),
 			heNew("title",
 				heText(title),
 				NULL
