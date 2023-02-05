@@ -171,6 +171,32 @@ HeAttr	self;
 	return self;
 }
 
+HeAttr heAttrNewf(char *name, char *fmt, ...)
+{
+va_list args;
+char    buffer[128], *buffer2;
+int     size;
+
+	if(name==NULL) return NULL;
+	if(fmt==NULL) return NULL;
+
+        va_start(args, fmt);
+
+        if((size = vsnprintf(buffer, 128, fmt, args)) < 128){
+                buffer2 = buffer;
+        }else{
+                if((buffer2 = malloc(size+1)) == NULL){
+			va_end(args);
+			return NULL;
+		}
+                vsnprintf(buffer2, size+1, fmt, args);
+        }
+
+        va_end(args);
+
+        return heAttrNew(name, buffer2);
+}
+
 void heAttrFree(HeAttr self)
 {
 	if(self==NULL) return;

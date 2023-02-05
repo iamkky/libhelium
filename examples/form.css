@@ -65,8 +65,8 @@ body {
   outline-offset: 2px;
   line-height: 1.2;
   font-weight: var(--awtk-form-font-weight);
-  height: var(--awtk-input-height);
-  font-size: var(--awtk-form-fontsize);
+  height: calc(var(--awtk-input-height)*1.5);
+  font-size: calc(var(--awtk-form-fontsize)*2);
   color: var(--awtk-input-color);
   background: var(--awtk-input-background);
 }

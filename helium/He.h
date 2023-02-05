@@ -56,12 +56,14 @@ void	heAddAttribute(He self, HeAttr attr);
 
 
 HeAttr	heAttrNew(char *name, char *value);
+HeAttr	heAttrNewf(char *name, char *fmt, ...);
 void	heAttrFree(HeAttr self);
 
 // Utils
 HeAttr	heClass(char *class_name);
 HeAttr	heId(char *id_name);
 He	heText(char *text);
+He	heTextf(char *fmt, ...);
 He	heList();
 He	heListv(va_list args);
 

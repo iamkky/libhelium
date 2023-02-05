@@ -72,7 +72,7 @@ He mkFormLine(char *label, He field)
 		);
 	}else{
 		return heNew("tr",
-			heNew("td", field, NULL),
+			heNew("td", heAttrNew("colspan","2"), field, NULL),
 			NULL
 		);
 	}

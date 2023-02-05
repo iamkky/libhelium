@@ -8,7 +8,7 @@ DIRS=dom
 all: ${LIB}
 
 example: example.o 
-	gcc ${CFLAGS} -o example example.o ${LIB} ${LIBABD}/libabd.a
+	gcc ${CFLAGS} -o example example.o ${LIB} $(LIBABD)/libabd.a
 
 ${LIB}: ${DIRS}
 	${AR} rcs ${LIB} */*.o

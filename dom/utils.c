@@ -28,7 +28,10 @@ int	size;
 	if((size = vsnprintf(buffer, 128, fmt, args)) < 128){
 		buffer2 = buffer;
 	}else{
-		if((buffer2 = malloc(size+1)) == NULL) return NULL;
+		if((buffer2 = malloc(size+1)) == NULL){
+			va_end(args);
+			return NULL;
+		}
 		vsnprintf(buffer2, size+1, fmt, args);
 	}
 
