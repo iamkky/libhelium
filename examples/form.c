@@ -44,11 +44,17 @@ He	children;
 He mkForm(char *action, char *method, ...)
 {
 va_list	args;
+char	*action2, *method2;
 He	children;
 
 	va_start(args, method);
 	children = heListv(args);
 	va_end(args);
+
+	action2 = heGetAttr(children, "action");
+	method2 = heGetAttr(children, "method");
+
+	fprintf(stdout,"LOG: %s %s\n", action2, method2);
 
 	return  heNew("form", heAttrNew("action", action), heAttrNew("method",method),
 		heNew("table",
@@ -171,6 +177,8 @@ char *query_string;
 		),
 		mkCenterBox("noname",
 			mkForm("form", "GET",
+				heAttrNew("action", "action_test"),
+				heAttrNew("method", "method_test"),
 				mkFormTitle(heText("Example Form")),
 				mkFormFieldHidden("id", "0"),
 				mkFormFieldText("Name:", "name", "20"),

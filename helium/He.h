@@ -47,7 +47,7 @@ struct He_st {
 	He	next;
 };
 
-// Creating new elements
+// HTML Elements
 He	heNew(char *face, ...);
 He	heNewv(char *face, va_list args);
 void	heFree(He self);
@@ -55,6 +55,8 @@ void	heFree(He self);
 void	heAddChild(He self, He child);
 void	heAddChildv(He self, va_list args);
 void	heAddAttribute(He self, HeAttr attr);
+
+char*	heGetAttr(He self, char *attr_anme);
 
 // Attribute
 HeAttr	heAttrNew(char *name, char *value);

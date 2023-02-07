@@ -14,6 +14,8 @@ static inline void safe_free(void *ptr)
 	if(ptr) free(ptr);
 }
 
+// HTML Elements
+
 He heNew(char *face, ...)
 {
 va_list args;
@@ -149,6 +151,27 @@ void heAddAttribute(He self, HeAttr attr)
 		self->cl = safe_strdup(attr->value);
 	}
 }
+
+char* heGetAttr(He self, char *attr_name)
+{
+HeAttr		attr;
+
+	if(self==NULL) return NULL;
+	if(attr_name==NULL) return NULL;
+	if(self->magic!=HLIB_ELEMENT) return NULL;
+	if(!strcmp(self->face,HELIUM_TEXT_TAG)) return NULL;
+
+	if(!strcmp(attr_name,"id")) return self->id;
+	if(!strcmp(attr_name,"class")) return self->cl;
+
+	for(attr = self->attribute; attr !=NULL; attr = attr->next){
+		if(!strcmp(attr->name,attr_name)) return attr->value;
+	}
+
+	return NULL;
+}
+
+// Attributes
 
 HeAttr heAttrNew(char *name, char *value)
 {
