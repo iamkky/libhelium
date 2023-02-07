@@ -116,9 +116,18 @@ He      children;
         );
 }
 ```
+
+### A more complete Example
+
+In file [examples/form.c](examples/form.c) is possible to find a complete, even though simple, example that uses many characteristics and features of LibHelium.
+
+Designed as a cgi, this piece of software renders a form with a small number of common fields.
+The example does not process any information as dealing with CGI protocol is out of escope of the lib.
+However QUERY_STRING is displayed in the upper left corner so one can verify the form is working.
+
 ### API
 
-Full API can be find in include file [helium/he.h](helium/he.h)
+Full API can be find in include file [helium/He.h](helium/He.h)
 
 ## Build
 
