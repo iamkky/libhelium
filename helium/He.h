@@ -9,6 +9,7 @@ typedef uint32_t hmagic;
 
 #define HLIB_ELEMENT		0x454c454d
 #define HLIB_ATTRIBUTE		0x41545452
+
 #define HELIUM_TEXT_TAG		"_text"
 #define HELIUM_LIST_TAG		"_list"
 
@@ -46,6 +47,7 @@ struct He_st {
 	He	next;
 };
 
+// Creating new elements
 He	heNew(char *face, ...);
 He	heNewv(char *face, va_list args);
 void	heFree(He self);
@@ -54,16 +56,18 @@ void	heAddChild(He self, He child);
 void	heAddChildv(He self, va_list args);
 void	heAddAttribute(He self, HeAttr attr);
 
-
+// Attribute
 HeAttr	heAttrNew(char *name, char *value);
 HeAttr	heAttrNewf(char *name, char *fmt, ...);
 void	heAttrFree(HeAttr self);
 
-// Utils
+// Utils (shortcuts)
 HeAttr	heClass(char *class_name);
 HeAttr	heId(char *id_name);
 He	heText(char *text);
 He	heTextf(char *fmt, ...);
+
+// utils (support to variadic)
 He	heList();
 He	heListv(va_list args);
 

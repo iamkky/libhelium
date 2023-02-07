@@ -70,6 +70,55 @@ Required includes:
 #include <stdlib.h>
 #include <helium/He.h>
 ```
+## Resources
+
+LibHelihum has a number o features to deal with common needs of HTML doc construction.
+As an standard way to deal with variadic functions, or ways to add children to already existing elements.
+
+### Adding children
+
+heAddChild(He self, He child); This is how children can be added to a already existing Element.
+
+```c
+He mkFormFieldSelect(char *label, char *name, char **options, int n_options)
+{
+He select;
+
+        select = heNew("select", heClass("input"), heAttrNew("name", name), NULL);
+
+        for(int c=0; c<n_options; c++){
+                heAddChild(select, heNew("option", heAttrNew("value", options[c]), heText(options[c]), NULL));
+        }
+
+        return mkFormLine(label, select);
+}
+```
+
+### Dealing with variadic args
+
+This example with just encapsulate a list of Elements with a form tag.
+```c
+He mkForm(char *action, char *method, ...)
+{
+va_list args;
+He      children;
+
+        va_start(args, method);
+        children = heListv(args);
+        va_end(args);
+
+        return
+		heNew("form",
+				heAttrNew("action", action),
+				heAttrNew("method",method),
+                children,
+                NULL
+        );
+}
+```
+### API
+
+Full API can be find in include file [helium/he.h](helium/he.h)
 
 ## Build
 
