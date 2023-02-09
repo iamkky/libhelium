@@ -41,30 +41,6 @@ He	children;
 	);
 }
 
-He mkForm(char *action, char *method, ...)
-{
-va_list	args;
-char	*action2, *method2;
-He	children;
-
-	va_start(args, method);
-	children = heListv(args);
-	va_end(args);
-
-	action2 = heGetAttr(children, "action");
-	method2 = heGetAttr(children, "method");
-
-	fprintf(stdout,"LOG: %s %s\n", action2, method2);
-
-	return  heNew("form", heAttrNew("action", action), heAttrNew("method",method),
-		heNew("table",
-			heNew("tbody", children, NULL),
-			NULL
-		),
-		NULL
-	);
-}
-
 He mkFormLine(char *label, He field)
 {
 
@@ -83,6 +59,33 @@ He mkFormLine(char *label, He field)
 	}
 }
 
+He mkFormTitle(He content)
+{
+	return mkFormLine(NULL, heNew("div", heClass("formtitle"), content, NULL));
+}
+
+He mkForm(char *action, char *method, char *title, ...)
+{
+va_list	args;
+He	children;
+
+	va_start(args, title);
+	children = heListv(args);
+	va_end(args);
+
+	return heNew("div", heClass("formclass"),
+		heNew("form", heAttrNew("action", action), heAttrNew("method",method),
+			mkFormTitle(heText(title)),
+			heNew("table",
+				heNew("tbody", children, NULL),
+				NULL
+			),
+			NULL
+		),
+		NULL
+	);
+}
+
 He mkFormFieldButton(char *type, ...)
 {
 va_list	args;
@@ -94,12 +97,6 @@ He	children;
 
 	return mkFormLine(NULL, heNew("button", heClass("input"), heAttrNew("type", type), children, NULL));
 }
-
-He mkFormTitle(He content)
-{
-	return mkFormLine(NULL, heNew("div", heClass("formtitle"), content, NULL));
-}
-
 
 He mkFormFieldText(char *label, char *name, char *size)
 {
@@ -176,10 +173,7 @@ char *query_string;
 			NULL
 		),
 		mkCenterBox("noname",
-			mkForm("form", "GET",
-				heAttrNew("action", "action_test"),
-				heAttrNew("method", "method_test"),
-				mkFormTitle(heText("Example Form")),
+			mkForm("form", "GET", "Example Form",
 				mkFormFieldHidden("id", "0"),
 				mkFormFieldText("Name:", "name", "20"),
 				mkFormFieldText("Age:", "age", "20"),

@@ -11,7 +11,7 @@ example: example.o
 	gcc ${CFLAGS} -o example example.o ${LIB} $(LIBABD)/libabd.a
 
 ${LIB}: ${DIRS}
-	${AR} rcs ${LIB} */*.o
+	${AR} rcs ${LIB} dom/*.o
 
 $(DIRS):
 	${MAKE} -C $@ $(MAKECMDGOALS)
