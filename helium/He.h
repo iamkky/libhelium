@@ -13,6 +13,10 @@ typedef uint32_t hmagic;
 #define HELIUM_TEXT_TAG		"_text"
 #define HELIUM_LIST_TAG		"_list"
 
+#define HE_GET_CHILDREN(last_named_field) (va_start(args, last_named_field), heListv(args)); va_end(args)
+
+#define HE_CHILDREN_START(field)	va_list args; He children; children = HE_GET_CHILDREN(field);
+
 struct HNode_st;
 typedef struct HNode_st *HNode;
 typedef struct HNode_st HNode_st;
@@ -24,7 +28,6 @@ typedef struct He_st He_st;
 struct Hatt_st;
 typedef struct HeAttr_st *HeAttr;
 typedef struct HeAttr_st HeAttr_st;
-
 
 struct HeAttr_st {
 	hmagic	magic;
@@ -77,4 +80,3 @@ He	heListv(va_list args);
 void	heRender(He e, StringBuffer sb);
 
 #endif
-// EOF

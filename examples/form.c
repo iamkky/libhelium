@@ -18,9 +18,7 @@ He mkPage(char *title, ...)
 va_list	args;
 He	children;
 
-	va_start(args, title);
-	children = heListv(args);
-	va_end(args);
+	children = HE_GET_CHILDREN(title);
 
 	return heNew("html",
 		heNew("head",
@@ -69,9 +67,7 @@ He mkForm(char *action, char *method, char *title, ...)
 va_list	args;
 He	children;
 
-	va_start(args, title);
-	children = heListv(args);
-	va_end(args);
+	children = HE_GET_CHILDREN(title);
 
 	return heNew("div", heClass("formclass"),
 		heNew("form", heAttrNew("action", action), heAttrNew("method",method),
@@ -91,9 +87,7 @@ He mkFormFieldButton(char *type, ...)
 va_list	args;
 He	children;
 
-	va_start(args, type);
-	children = heListv(args);
-	va_end(args);
+	children = HE_GET_CHILDREN(type);
 
 	return mkFormLine(NULL, heNew("button", heClass("input"), heAttrNew("type", type), children, NULL));
 }
@@ -142,9 +136,7 @@ He mkCenterBox(char *name, ...)
 va_list	args;
 He	children;
 
-	va_start(args, name);
-	children = heListv(args);
-	va_end(args);
+	children = HE_GET_CHILDREN(name);
   
 	return  heNew("div",
 			heClass("centerbox"),
