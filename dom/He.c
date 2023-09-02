@@ -16,7 +16,7 @@ static inline void safe_free(void *ptr)
 
 // HTML Elements
 
-He heNew(char *face, ...)
+He heNew(const char *face, ...)
 {
 va_list args;
 He self;
@@ -28,7 +28,7 @@ He self;
 	return self;
 }
 
-He heNewv(char *face, va_list args)
+He heNewv(const char *face, va_list args)
 {
 He	self;
 		
@@ -173,7 +173,7 @@ HeAttr		attr;
 
 // Attributes
 
-HeAttr heAttrNew(char *name, char *value)
+HeAttr heAttrNew(char *name, const char *value)
 {
 HeAttr	self;
 		
@@ -194,7 +194,7 @@ HeAttr	self;
 	return self;
 }
 
-HeAttr heAttrNewf(char *name, char *fmt, ...)
+HeAttr heAttrNewf(char *name, const char *fmt, ...)
 {
 va_list args;
 char    buffer[128], *buffer2;
@@ -220,12 +220,20 @@ int     size;
         return heAttrNew(name, buffer2);
 }
 
+HeAttr heAttrNewEvent(char *name, void *target, int (*handler)(void *targer, char *value), const char *value)
+{
+HeAttr	self;
+
+        if((self = heAttrNew(name, value))==NULL) return NULL;
+        self->target = target;
+        self->handler = handler;
+        return self;
+}
+
 void heAttrFree(HeAttr self)
 {
 	if(self==NULL) return;
-
 	if(self->name) free(self->name);
 	if(self->value) free(self->value);
 	free(self);
-	
 }

@@ -33,8 +33,8 @@ struct HeAttr_st {
 	hmagic	magic;
 	char	*name;
 	char	*value;
-	void	*component;
-	int	(*ptr)(void *component, char *value);
+	void	*target;
+	int	(*handler)(void *target, char *value);
 	HeAttr	next;
 };
 
@@ -51,8 +51,8 @@ struct He_st {
 };
 
 // HTML Elements
-He	heNew(char *face, ...);
-He	heNewv(char *face, va_list args);
+He	heNew(const char *face, ...);
+He	heNewv(const char *face, va_list args);
 void	heFree(He self);
 
 void	heAddChild(He self, He child);
@@ -62,8 +62,8 @@ void	heAddAttribute(He self, HeAttr attr);
 char*	heGetAttr(He self, char *attr_anme);
 
 // Attribute
-HeAttr	heAttrNew(char *name, char *value);
-HeAttr	heAttrNewf(char *name, char *fmt, ...);
+HeAttr	heAttrNew(char *name, const char *value);
+HeAttr	heAttrNewf(char *name, const char *fmt, ...);
 void	heAttrFree(HeAttr self);
 
 // Utils (shortcuts)

@@ -43,15 +43,18 @@ He mkFormLine(char *label, He field)
 {
 
 	if(label){
-		return heNew("tr",
-			heClass("formline"),
-			heNew("td", heText(label), NULL),
-			heNew("td", field, NULL),
+		return heNew("div",
+			heNew("div", heText(label), NULL),
+			heNew("div", 
+				heClass("formline"),
+				field,
+				NULL),
 			NULL	
 		);
 	}else{
-		return heNew("tr",
-			heNew("td", heAttrNew("colspan","2"), field, NULL),
+		return heNew("div",
+			heClass("formline"),
+			heNew("div", field, NULL),
 			NULL
 		);
 	}
@@ -70,10 +73,17 @@ He	children;
 	children = HE_GET_CHILDREN(title);
 
 	return heNew("div", heClass("formclass"),
-		heNew("form", heAttrNew("action", action), heAttrNew("method",method),
-			mkFormTitle(heText(title)),
-			heNew("table",
-				heNew("tbody", children, NULL),
+		heNew("form",
+			heAttrNew("action", action),
+			heAttrNew("method",method),
+			heNew("div",
+				heClass("formtitle"),
+				heText(title),
+				NULL
+			),
+			heNew("div",
+				heClass("formcontent"),
+				children,
 				NULL
 			),
 			NULL
