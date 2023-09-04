@@ -225,8 +225,9 @@ HeAttr heAttrNewEvent(char *name, int (*handler)(void *targer, char *value), voi
 HeAttr	self;
 
         if((self = heAttrNew(name, value))==NULL) return NULL;
-        self->target = target;
         self->handler = handler;
+        self->target = target;
+        self->value = safe_strdup(value);
         return self;
 }
 
