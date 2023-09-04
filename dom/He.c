@@ -220,7 +220,7 @@ int     size;
         return heAttrNew(name, buffer2);
 }
 
-HeAttr heAttrNewEvent(char *name, void *target, int (*handler)(void *targer, char *value), const char *value)
+HeAttr heAttrNewEvent(char *name, int (*handler)(void *targer, char *value), void *target, const char *value)
 {
 HeAttr	self;
 

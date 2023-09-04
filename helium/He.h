@@ -64,6 +64,7 @@ char*	heGetAttr(He self, char *attr_anme);
 // Attribute
 HeAttr	heAttrNew(char *name, const char *value);
 HeAttr	heAttrNewf(char *name, const char *fmt, ...);
+HeAttr	heAttrNewEvent(char *name, int (*handler)(void *targer, char *value), void *target, const char *value);
 void	heAttrFree(HeAttr self);
 
 // Utils (shortcuts)
