@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 #include "helium/He.h"
+#include "abd/printf.h" 
 
 static inline char *safe_strdup(const char *str)
 {
