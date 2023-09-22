@@ -1,4 +1,5 @@
 
+include make.wasm
 
 LIB=libhelium.a
 DIRS=dom
