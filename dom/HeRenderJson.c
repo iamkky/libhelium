@@ -29,8 +29,9 @@ char	*st;
 
 	if(!strcmp(self->face,HELIUM_TEXT_TAG)){
 		if(self->content) {
-			stringBufferAddf(sb, "{\"t\":\"%d\", \"v\":\"%s\", \"h\":%d}", 
-				hashAccString(0,self->face),
+			stringBufferAddf(sb, "{\"t\":\"%s\", \"v\":\"%s\", \"h\":%d}", 
+				//hashAccString(0,self->face),
+				self->face,
 				st=strEscapeJson(self->content),
 				hashAccString(0,self->content)
 				);
@@ -39,7 +40,8 @@ char	*st;
 	}else{
 		hash = 0;
 
-		stringBufferAddf(sb, "{\"t\":\"%d\"", hashAccString(0, self->face));
+		//stringBufferAddf(sb, "{\"t\":\"%d\"", hashAccString(0, self->face));
+		stringBufferAddf(sb, "{\"t\":\"%s\"", self->face);
 
 		hash = 0;
 		if(self->cl){

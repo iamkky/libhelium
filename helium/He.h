@@ -79,5 +79,6 @@ He	heListv(va_list args);
 
 // Renderers
 void	heRender(He e, StringBuffer sb);
+void	heRenderJson(He self, StringBuffer sb);
 
 #endif
