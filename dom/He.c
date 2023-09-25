@@ -138,18 +138,20 @@ void heAddAttribute(He self, HeAttr attr)
 	if(self==NULL) return;
 	if(self->magic!=HLIB_ELEMENT) return;
 
-	attr->next = self->attribute;
-	self->attribute = attr;
-
 	if(!strcmp(attr->name,"id")){
 		if(self->id) free(self->id);
 		self->id = safe_strdup(attr->value);
+		return;
 	}
 
 	if(!strcmp(attr->name,"class")){
 		if(self->cl) free(self->cl);
 		self->cl = safe_strdup(attr->value);
+		return;
 	}
+
+	attr->next = self->attribute;
+	self->attribute = attr;
 }
 
 char* heGetAttr(He self, char *attr_name)
