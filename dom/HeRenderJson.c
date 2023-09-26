@@ -57,8 +57,8 @@ char	*st;
 			stringBufferAddf(sb, ", \"at\":[");
 			while(a!=NULL){
 				if(a->handler){
-					stringBufferAddf(sb, "{\"n\":\"%s\", \"c\":\"%d\", \"v\":%ld, \"p\":\"%p\"}",
-								a->name, (int)(a->target), (long)a->value, a->handler);
+					stringBufferAddf(sb, "{\"n\":\"%s\", \"c\":\"%d\", \"v\":\"%s\", \"p\":\"%p\"}",
+								a->name, (int)(a->target), a->value, a->handler);
 					// Fixme: hash does not reflect changes in handler function pointer... 
 					//        neither component pointer... 
 					hash = hashAccInt(hash, (int)(a->target));
