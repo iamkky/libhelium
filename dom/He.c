@@ -191,6 +191,7 @@ HeAttr	self;
 
 	self->name		= safe_strdup(name);
 	self->value		= safe_strdup(value);
+	//self->handler		= NULL;
 
 	self->next		= NULL;
 
@@ -223,7 +224,9 @@ int     size;
         return heAttrNew(name, buffer2);
 }
 
-HeAttr heAttrNewEvent(char *name, int (*handler)(void *targer, StringBuffer value), void *target, const char *value)
+//HeAttr heAttrNewEvent(char *name, int (*handler)(StringBuffer event_type, void *targer, StringBuffer value), void *target, const char *value)
+/*
+HeAttr heAttrNewEvent(char *name, HEventHandler_t *handler, void *target, const char *value)
 {
 HeAttr	self;
 
@@ -233,6 +236,7 @@ HeAttr	self;
         self->value = safe_strdup(value);
         return self;
 }
+*/
 
 void heAttrFree(HeAttr self)
 {

@@ -7,6 +7,8 @@
 
 typedef uint32_t hmagic;
 
+//typedef int HEventHandler_t(StringBuffer type, void *component, StringBuffer value);
+
 #define HLIB_ELEMENT		0x454c454d
 #define HLIB_ATTRIBUTE		0x41545452
 
@@ -16,6 +18,7 @@ typedef uint32_t hmagic;
 #define HE_GET_CHILDREN(last_named_field) (va_start(args, last_named_field), heListv(args)); va_end(args)
 
 #define HE_CHILDREN_START(field)	va_list args; He children; children = HE_GET_CHILDREN(field);
+
 
 struct HNode_st;
 typedef struct HNode_st *HNode;
@@ -33,8 +36,9 @@ struct HeAttr_st {
 	hmagic	magic;
 	char	*name;
 	char	*value;
-	void	*target;
-	int	(*handler)(void *target, StringBuffer value);
+	//void	*target;
+	//int	(*handler)(StringBuffer event_type, void *target, StringBuffer value);
+	//HEventHandler_t	*handler;
 	HeAttr	next;
 };
 
@@ -64,7 +68,8 @@ char*	heGetAttr(He self, char *attr_anme);
 // Attribute
 HeAttr	heAttrNew(char *name, const char *value);
 HeAttr	heAttrNewf(char *name, const char *fmt, ...);
-HeAttr	heAttrNewEvent(char *name, int (*handler)(void *targer, StringBuffer value), void *target, const char *value);
+//HeAttr	heAttrNewEvent(char *name, int (*handler)(StringBuffer event_type, void *targer, StringBuffer value), void *target, const char *value);
+//HeAttr	heAttrNewEvent(char *name, HEventHandler_t *handler, void *target, const char *value);
 void	heAttrFree(HeAttr self);
 
 // Utils (shortcuts)
