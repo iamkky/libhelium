@@ -3,7 +3,7 @@
 #include <string.h>
 #include "helium/He.h"
 #include "abd/printf.h" 
-#include "abd/StringBuffer.h" 
+#include "abd/AString.c.h" 
 
 static inline char *safe_strdup(const char *str)
 {
@@ -224,7 +224,7 @@ int     size;
         return heAttrNew(name, buffer2);
 }
 
-//HeAttr heAttrNewEvent(char *name, int (*handler)(StringBuffer event_type, void *targer, StringBuffer value), void *target, const char *value)
+//HeAttr heAttrNewEvent(char *name, int (*handler)(AString event_type, void *targer, AString value), void *target, const char *value)
 /*
 HeAttr heAttrNewEvent(char *name, HEventHandler_t *handler, void *target, const char *value)
 {

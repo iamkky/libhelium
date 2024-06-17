@@ -33,17 +33,17 @@ Note:
 
 ```heClass(char *class)``` is really just a call to ```heAttrNew("class", class)```, just to shorten things a little bit.
 
-Latter the structure can be rendered as HTML to a StringBuffer (from libabd) using:
+Latter the structure can be rendered as HTML to a AString (from libabd) using:
 
 ```c
 void render(He page)
 {
-StringBuffer    st;
+AString    st;
 
-        st = StringBufferNew(1024);
+        st = AStringNew(1024);
         heRender(page, st);
-        puts(stringBufferGetBuffer(st));
-        stringBufferFree(st);
+        puts(aStringGetBuffer(st));
+        aStringFree(st);
 }
 ```
 

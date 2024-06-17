@@ -3,11 +3,11 @@
 
 #include <stdarg.h>
 #include <stdint.h>
-#include <abd/StringBuffer.h>
+#include <abd/AString.c.h>
 
 typedef uint32_t hmagic;
 
-//typedef int HEventHandler_t(StringBuffer type, void *component, StringBuffer value);
+//typedef int HEventHandler_t(AString type, void *component, AString value);
 
 #define HLIB_ELEMENT		0x454c454d
 #define HLIB_ATTRIBUTE		0x41545452
@@ -37,7 +37,7 @@ struct HeAttr_st {
 	char	*name;
 	char	*value;
 	//void	*target;
-	//int	(*handler)(StringBuffer event_type, void *target, StringBuffer value);
+	//int	(*handler)(AString event_type, void *target, AString value);
 	//HEventHandler_t	*handler;
 	HeAttr	next;
 };
@@ -68,7 +68,7 @@ char*	heGetAttr(He self, char *attr_anme);
 // Attribute
 HeAttr	heAttrNew(char *name, const char *value);
 HeAttr	heAttrNewf(char *name, const char *fmt, ...);
-//HeAttr	heAttrNewEvent(char *name, int (*handler)(StringBuffer event_type, void *targer, StringBuffer value), void *target, const char *value);
+//HeAttr	heAttrNewEvent(char *name, int (*handler)(AString event_type, void *targer, AString value), void *target, const char *value);
 //HeAttr	heAttrNewEvent(char *name, HEventHandler_t *handler, void *target, const char *value);
 void	heAttrFree(HeAttr self);
 
@@ -83,7 +83,7 @@ He	heList();
 He	heListv(va_list args);
 
 // Renderers
-void	heRender(He e, StringBuffer sb);
-void	heRenderJson(He self, StringBuffer sb);
+void	heRender(He e, AString sb);
+void	heRenderJson(He self, AString sb);
 
 #endif

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <helium/He.h>
+#include <abd/new.h>
 #include "cgi.h"
 
 He mkPage(char *title, ...)
@@ -192,7 +193,7 @@ char *query_string;
 
 int main(void)
 {
-StringBuffer	st;
+AString	st;
 He		page;
 
 	page = cgi_editform_example(0);
@@ -200,8 +201,9 @@ He		page;
 	puts("Content-type: text/html\r\n\r\n");
 	puts("<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>");
 
-	st = StringBufferNew(1024);
+	st = CNew(AStrinf, 1024);
 	heRender(page, st);
-	puts(stringBufferGetBuffer(st));
-	stringBufferFree(st);
+	puts(aStringGetBuffer(st));
+	aStringFree(st);
+
 }

@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <abd/StringBuffer.h>
+#include <abd/AString.c.h>
 #include "helium/He.h"
 
 static int isVoid(char *face);
 
-void heRender(He self, StringBuffer sb)
+void heRender(He self, AString sb)
 {
 HeAttr		attr;
 He		child;
@@ -15,28 +15,28 @@ He		child;
 	if(self->magic!=HLIB_ELEMENT) return;
 
 	if(!strcmp(self->face,HELIUM_TEXT_TAG)){
-		stringBufferAddStr(sb, self->content);
+		aStringAddStr(sb, self->content);
 		return;
 	}
 
-	stringBufferAddf(sb, "<%s", self->face);
+	aStringAddf(sb, "<%s", self->face);
 
-	if(self->id) stringBufferAddf(sb, " id = \"%s\"", self->id);
+	if(self->id) aStringAddf(sb, " id = \"%s\"", self->id);
 
-	if(self->cl) stringBufferAddf(sb, " class = \"%s\"", self->cl);
+	if(self->cl) aStringAddf(sb, " class = \"%s\"", self->cl);
 
 	for(attr = self->attribute; attr !=NULL; attr = attr->next){
 		if(!strcmp(attr->name,"id")) continue;
 		if(!strcmp(attr->name,"class")) continue;
-		stringBufferAddf(sb, " %s = \"%s\"", attr->name, attr->value);
+		aStringAddf(sb, " %s = \"%s\"", attr->name, attr->value);
 	}
-	stringBufferAddStr(sb, ">\n");
+	aStringAddStr(sb, ">\n");
 
 	for(child = self->child; child !=NULL; child = child->next){
 		heRender(child, sb);
 	}
 
-	if(!isVoid(self->face)) stringBufferAddf(sb, "</%s>\n", self->face);
+	if(!isVoid(self->face)) aStringAddf(sb, "</%s>\n", self->face);
 }
 
 static int isVoid(char *face)
@@ -56,7 +56,7 @@ char **word;
 
 /*
 
-void heRenderJson(He self, StringBuffer sb)
+void heRenderJson(He self, AString sb)
 {
 HeAttr	a;
 He	c;
@@ -68,7 +68,7 @@ char	*st;
 
 	if(!strcmp(self->face,"text")){
 		h = hashAddString(e->type, e->content.text);
-		stringBufferAddStr(sb, self->content);
+		aStringAddStr(sb, self->content);
 		return;
 	}
 
@@ -76,7 +76,7 @@ char	*st;
 		if(e->content.text) {
 
 			//Fixme: Should be HTML escape and not JSON escape... But works by now.
-			stringBufferAppendf(sb, "{\"t\":\"%d\", \"v\":\"%s\", \"h\":%d}", e->type, st=strJsonEscape(e->content.text), h);
+			aStringAppendf(sb, "{\"t\":\"%d\", \"v\":\"%s\", \"h\":%d}", e->type, st=strJsonEscape(e->content.text), h);
 			if(st) free(st);
 		}
 		break;
@@ -86,45 +86,45 @@ char	*st;
 			errLogf("postJs  unsupported\n");
 		}
 
-		stringBufferAppendf(sb, "{\"t\":\"%d\"", e->type);
+		aStringAppendf(sb, "{\"t\":\"%d\"", e->type);
 
 		h = htElementRenderJsonHashAcc(e->type, 0);
 		if(e->clas){
-			stringBufferAppendf(sb, ", \"c\":\"%s\"", e->clas);
+			aStringAppendf(sb, ", \"c\":\"%s\"", e->clas);
 			h = htElementRenderJsonHashString(h, e->clas);
 		}
 		if(e->id){
-			stringBufferAppendf(sb, ", \"i\":\"%s\"", e->id);
+			aStringAppendf(sb, ", \"i\":\"%s\"", e->id);
 			h = htElementRenderJsonHashString(h, e->id);
 		}
 		a = e->attr;
 		if(a){
-			stringBufferAppendf(sb, ", \"at\":[");
+			aStringAppendf(sb, ", \"at\":[");
 			while(a!=NULL){
 				if(a->ptr){
-					stringBufferAppendf(sb, "{\"n\":\"%s\", \"v\":%ld, \"p\":\"%p\"}",a->name,(long)a->value, a->ptr);
+					aStringAppendf(sb, "{\"n\":\"%s\", \"v\":%ld, \"p\":\"%p\"}",a->name,(long)a->value, a->ptr);
 					// Fixme: hash does not reflect changes in handler function pointer... 
 					h = htElementRenderJsonHashString(h, a->name);
 					h = htElementRenderJsonHashString(h, a->value);
 				}else{
-					stringBufferAppendf(sb, "{\"n\":\"%s\", \"v\":\"%s\"}", a->name, a->value);
+					aStringAppendf(sb, "{\"n\":\"%s\", \"v\":\"%s\"}", a->name, a->value);
 					h = htElementRenderJsonHashString(h, a->name);
 					h = htElementRenderJsonHashString(h, a->value);
 				}
-				if((a = a->next)) stringBufferAppendf(sb, ", ");
+				if((a = a->next)) aStringAppendf(sb, ", ");
 			}
-			stringBufferAppendf(sb, " ]");
+			aStringAppendf(sb, " ]");
 		}
 		c = e->content.child;
 		if(c){
-			stringBufferAppendf(sb, ", \"ch\":[\n");
+			aStringAppendf(sb, ", \"ch\":[\n");
 			while(c!=NULL){
 				htElementRenderJson(c, sb);
-				if((c = c->next)) stringBufferAppendf(sb, ",\n ");
+				if((c = c->next)) aStringAppendf(sb, ",\n ");
 			}
-			stringBufferAppendf(sb, "\n]");
+			aStringAppendf(sb, "\n]");
 		}
-		stringBufferAppendf(sb, ", \"h\":%d}", h);
+		aStringAppendf(sb, ", \"h\":%d}", h);
        }
 
 	return sb;

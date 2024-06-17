@@ -23,12 +23,12 @@ He build_a_card(char *title, char *text)
 
 void render(He page)
 {
-StringBuffer    st;
+AString    st;
 
-        st = StringBufferNew(1024);
+        st = AStringNew(1024);
         heRender(page, st);
-        puts(stringBufferGetBuffer(st));
-        stringBufferFree(st);
+        puts(aStringGetBuffer(st));
+        aStringFree(st);
 }
 
 

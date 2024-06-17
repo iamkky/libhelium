@@ -17,7 +17,7 @@ int32_t static hashAccString(int32_t hash, const char *data)
 	return hash;
 }
 
-void heRenderJson(He self, StringBuffer sb)
+void heRenderJson(He self, AString sb)
 {
 HeAttr	a;
 He	c;
@@ -29,7 +29,7 @@ char	*st;
 
 	if(!strcmp(self->face,HELIUM_TEXT_TAG)){
 		if(self->content) {
-			stringBufferAddf(sb, "{\"t\":\"%s\", \"v\":\"%s\", \"h\":%d}", 
+			aStringAddf(sb, "{\"t\":\"%s\", \"v\":\"%s\", \"h\":%d}", 
 				//hashAccString(0,self->face),
 				self->face,
 				st=strEscapeJson(self->content),
@@ -40,27 +40,27 @@ char	*st;
 	}else{
 		hash = 0;
 
-		//stringBufferAddf(sb, "{\"t\":\"%d\"", hashAccString(0, self->face));
-		stringBufferAddf(sb, "{\"t\":\"%s\"", self->face);
+		//aStringAddf(sb, "{\"t\":\"%d\"", hashAccString(0, self->face));
+		aStringAddf(sb, "{\"t\":\"%s\"", self->face);
 
 		hash = 0;
 		if(self->cl){
-			stringBufferAddf(sb, ", \"c\":\"%s\"", self->cl);
+			aStringAddf(sb, ", \"c\":\"%s\"", self->cl);
 			hash = hashAccString(hash, self->cl);
 		}
 		if(self->id){
-			stringBufferAddf(sb, ", \"i\":\"%s\"", self->id);
+			aStringAddf(sb, ", \"i\":\"%s\"", self->id);
 			hash = hashAccString(hash, self->id);
 		}
 		a = self->attribute;
 		if(a){
-			stringBufferAddf(sb, ", \"at\":[");
+			aStringAddf(sb, ", \"at\":[");
 			while(a!=NULL){
 /*
 				if(a->handler){
-					stringBufferAddf(sb, "{\"n\":\"%s\", \"c\":\"%d\", \"v\":\"%s\", \"p\":\"%p\"}",
+					aStringAddf(sb, "{\"n\":\"%s\", \"c\":\"%d\", \"v\":\"%s\", \"p\":\"%p\"}",
 								a->name, (int)(a->target), a->value, a->handler);
-					stringBufferAddf(sb, "{\"n\":\"%s\", \"v\":\"%s\" }", a->name, a->value);
+					aStringAddf(sb, "{\"n\":\"%s\", \"v\":\"%s\" }", a->name, a->value);
 					
 					// Fixme: hash does not reflect changes in handler function pointer... 
 					//        neither component pointer... 
@@ -69,24 +69,24 @@ char	*st;
 					hash = hashAccString(hash, a->value);
 				}else{
 */
-					stringBufferAddf(sb, "{\"n\":\"%s\", \"v\":\"%s\"}", a->name, a->value);
+					aStringAddf(sb, "{\"n\":\"%s\", \"v\":\"%s\"}", a->name, a->value);
 					hash = hashAccString(hash, a->name);
 					hash = hashAccString(hash, a->value);
 			//	}
-				if((a = a->next)) stringBufferAddf(sb, ", ");
+				if((a = a->next)) aStringAddf(sb, ", ");
 			}
-			stringBufferAddf(sb, " ]");
+			aStringAddf(sb, " ]");
 		}
 		c = self->child;
 		if(c){
-			stringBufferAddf(sb, ", \"ch\":[\n");
+			aStringAddf(sb, ", \"ch\":[\n");
 			while(c!=NULL){
 				heRenderJson(c, sb);
-				if((c = c->next)) stringBufferAddf(sb, ",\n ");
+				if((c = c->next)) aStringAddf(sb, ",\n ");
 			}
-			stringBufferAddf(sb, "\n]");
+			aStringAddf(sb, "\n]");
 		}
-		stringBufferAddf(sb, ", \"h\":%d}", hash);
+		aStringAddf(sb, ", \"h\":%d}", hash);
 	}
 }
 
